@@ -21,12 +21,12 @@ class Variable:
         funcs = [self.creator]
         while funcs:
             f = funcs.pop()
-            gys = [output.grad for output in f.outputs]
-            gxs = f.backward(*gys)
-            if not isinstance(gxs, tuple):
+            gys = [output.grad for output in f.outputs] #outputs에 담계 있는 미분값들을 리스트에 저장
+            gxs = f.backward(*gys) # f의 역전파 호출
+            if not isinstance(gxs, tuple): # gxs가 튜플이 아닌경우 튜플로 변환
                 gxs = (gxs,)
 
-            for x, gx in zip(f.inputs, gxs):
+            for x, gx in zip(f.inputs, gxs): #역전파로 전파되는 미분값을 Variable 클래스의 x.grad에 저장
                 x.grad = gx
 
                 if x.creator is not None:
@@ -66,7 +66,7 @@ class Square(Function):
         return y
 
     def backward(self, gy):
-        x = self.inputs[0].data
+        x = self.inputs[0].data # 수정전 x = self.input.data
         gx = 2 * x * gy
         return gx
 

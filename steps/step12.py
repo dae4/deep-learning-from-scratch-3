@@ -37,8 +37,8 @@ def as_array(x):
 class Function:
     def __call__(self, *inputs):
         xs = [x.data for x in inputs]
-        ys = self.forward(*xs)
-        if not isinstance(ys, tuple):
+        ys = self.forward(*xs) # * 를 붙여서 리스트 언팩  = self.forward(x0,x1)과 같음
+        if not isinstance(ys, tuple): # ys가 튜플이 아닌경우
             ys = (ys,)
         outputs = [Variable(as_array(y)) for y in ys]
 

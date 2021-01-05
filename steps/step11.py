@@ -36,9 +36,9 @@ def as_array(x):
 
 class Function:
     def __call__(self, inputs):
-        xs = [x.data for x in inputs]  # Get data from Variable
-        ys = self.forward(xs)
-        outputs = [Variable(as_array(y)) for y in ys]  # Wrap data
+        xs = [x.data for x in inputs]  # inputs들을 xs로 리스트화
+        ys = self.forward(xs) #리스트를 ys
+        outputs = [Variable(as_array(y)) for y in ys]  # ys를 각각 Variable의 입력으로 넣고 리스트화
 
         for output in outputs:
             output.set_creator(self)

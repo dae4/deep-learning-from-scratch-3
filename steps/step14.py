@@ -30,9 +30,9 @@ class Variable:
                 gxs = (gxs,)
 
             for x, gx in zip(f.inputs, gxs):
-                if x.grad is None:
+                if x.grad is None: # 미분값이 처음 설정하는경우 
                     x.grad = gx
-                else:
+                else: #미분값이 존재하는경우(입력이 같은 경우)
                     x.grad = x.grad + gx
 
                 if x.creator is not None:

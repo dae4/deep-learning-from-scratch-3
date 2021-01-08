@@ -10,11 +10,11 @@ class Variable:
         self.data = data
         self.grad = None
         self.creator = None
-        self.generation = 0
+        self.generation = 0 # 세대 변수 선언, 초기화
 
     def set_creator(self, func):
         self.creator = func
-        self.generation = func.generation + 1
+        self.generation = func.generation + 1 # 세대를 할당
 
     def cleargrad(self):
         self.grad = None

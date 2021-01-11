@@ -1,4 +1,4 @@
-import weakref
+import weakref # weakref import
 import numpy as np
 
 
@@ -37,7 +37,7 @@ class Variable:
 
         while funcs:
             f = funcs.pop()
-            gys = [output().grad for output in f.outputs]  # output is weakref
+            gys = [output().grad for output in f.outputs]  # output.grad ==> output().grad / output 은 "약한참조"이기때문 
             gxs = f.backward(*gys)
             if not isinstance(gxs, tuple):
                 gxs = (gxs,)
@@ -70,7 +70,7 @@ class Function:
         for output in outputs:
             output.set_creator(self)
         self.inputs = inputs
-        self.outputs = [weakref.ref(output) for output in outputs]
+        self.outputs = [weakref.ref(output) for output in outputs] #self.outpus = weakref.ref(output) 함으로써 약한 참조
         return outputs if len(outputs) > 1 else outputs[0]
 
     def forward(self, xs):
